@@ -6,15 +6,15 @@ const CONFIG = {
     role: "Entrepreneur, Software Engineer",
     bio: "Make a big thing!",
     email: "junsoor37@gmail.com",
-    linkedin: "https://www.linkedin.com/in/junsoo-jang-75871a185/",
-    github: "https://github.com/junsoo37",
+    linkedin: "junsoo-jang-75871a185",
+    github: "junsoo37",
     instagram: "",
   },
   projects: [
-    {
-      name: `morethan-log`,
-      href: "https://github.com/junsoo37/morethan-log",
-    },
+    // {
+    //   name: `morethan-log`,
+    //   href: "https://github.com/junsoo37/morethan-log",
+    // },
   ],
   // blog setting (required)
   blog: {
