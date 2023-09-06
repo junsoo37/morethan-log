@@ -18,14 +18,9 @@ const CONFIG = {
   ],
   // blog setting (required)
   blog: {
-<<<<<<< HEAD
     title: "Junsoor",
     description: "Welcome to Junsoor's World!",
     theme: "auto", // ['light', 'dark', 'auto']
-=======
-    title: "morethan-log",
-    description: "welcome to morethan-log!",
->>>>>>> upstream/main
   },
 
   // CONFIG configration (required)
