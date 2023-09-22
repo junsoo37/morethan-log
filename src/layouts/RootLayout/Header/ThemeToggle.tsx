@@ -3,6 +3,7 @@ import React from "react"
 import { Emoji } from "src/components/Emoji"
 import useScheme from "src/hooks/useScheme"
 
+// type Temp
 type Props = {}
 
 const ThemeToggle: React.FC<Props> = () => {
