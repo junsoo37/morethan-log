@@ -6,7 +6,7 @@ const CONFIG = {
     role: "Entrepreneur, Software Engineer",
     bio: "Make a big thing!",
     email: "junsoor37@gmail.com",
-    linkedin: "junsoo-jang-75871a185",
+    linkedin: "junsoo-jang",
     github: "junsoo37",
     instagram: "",
   },
@@ -24,6 +24,7 @@ const CONFIG = {
   },
 
   // CONFIG configration (required)
+  // Current num of posts: 6
   link: "https://www.junsoor.com",
   since: 2023, // If leave this empty, current year will be used.
   lang: "en-US", // ['en-US', 'zh-CN', 'zh-HK', 'zh-TW', 'ja-JP', 'es-ES', 'ko-KR']
@@ -36,7 +37,7 @@ const CONFIG = {
 
   // plugin configuration (optional)
   googleAnalytics: {
-    enable: false,
+    enable: true,
     config: {
       measurementId: process.env.NEXT_PUBLIC_GOOGLE_MEASUREMENT_ID || "",
     },
