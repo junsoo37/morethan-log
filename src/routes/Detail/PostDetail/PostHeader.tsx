@@ -22,7 +22,7 @@ const PostHeader: React.FC<Props> = ({ data }) => {
                 <div className="author">
                   <Image
                     css={{ borderRadius: "50%" }}
-                    // src={data.author[0].profile_photo || CONFIG.profile.image}
+                    // src={data.author[0].profile_photo || CONFIG.profile.image} 
                     src={CONFIG.profile.image}
                     alt="profile_photo"
                     width={24}
