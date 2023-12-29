@@ -18,14 +18,9 @@ const PostList: React.FC<Props> = ({ q }) => {
   const currentOrder = `${router.query.order || ``}` || "desc"
   const currentLanguage = router.locale;
 
-  console.log('currentLanguage');
-  console.log(currentLanguage);
   useEffect(() => {
     setFilteredPosts(() => {
-      let newFilteredPosts = data
-      console.log("newFilteredPosts");
-      console.log(newFilteredPosts);
-      
+      let newFilteredPosts = data      
       // language
       newFilteredPosts = newFilteredPosts.filter(
         (post) => post && post.language === currentLanguage
