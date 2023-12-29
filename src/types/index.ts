@@ -14,12 +14,14 @@ export type AppPropsWithLayout = AppProps & {
 
 export type TPostStatus = "Private" | "Public" | "PublicOnDetail"
 export type TPostType = "Post" | "Paper" | "Page"
+export type TPostLanguage = "ko" | "en"
 
 export type TPost = {
   id: string
   date: { start_date: string }
   type: TPostType[]
   slug: string
+  language: TPostLanguage
   tags?: string[]
   category?: string[]
   summary?: string

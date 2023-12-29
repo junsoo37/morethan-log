@@ -1,0 +1,32 @@
+/* components/ToggleSwitchLanguageSwitcher.module.css */
+
+.toggleSwitch {
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    border-radius: 20px;
+    background-color: #f0f0f0; /* Default background color */
+    transition: background-color 0.3s ease; /* Transition for smooth effect */
+    height: 32px; /* Adjust the height to your preference */
+    width: 100px;
+  }
+  
+  .languageOption {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transition for smooth effect */
+  }
+  
+  .languageOption.active {
+    background-color: #ed8d10; /* Active background color */
+    color: #fff; /* Active text color */
+  }
+  
+  .languageText {
+    font-size: 13px; /* Adjust the font size to your preference */
+    font-weight: bold;
+    color: #333; /* Default text color */
+  }

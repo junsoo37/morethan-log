@@ -16,10 +16,21 @@ const PostList: React.FC<Props> = ({ q }) => {
   const currentTag = `${router.query.tag || ``}` || undefined
   const currentCategory = `${router.query.category || ``}` || DEFAULT_CATEGORY
   const currentOrder = `${router.query.order || ``}` || "desc"
+  const currentLanguage = router.locale;
 
+  console.log('currentLanguage');
+  console.log(currentLanguage);
   useEffect(() => {
     setFilteredPosts(() => {
       let newFilteredPosts = data
+      console.log("newFilteredPosts");
+      console.log(newFilteredPosts);
+      
+      // language
+      newFilteredPosts = newFilteredPosts.filter(
+        (post) => post && post.language === currentLanguage
+      )
+      
       // keyword
       newFilteredPosts = newFilteredPosts.filter((post) => {
         const tagContent = post.tags ? post.tags.join(" ") : ""
@@ -48,7 +59,7 @@ const PostList: React.FC<Props> = ({ q }) => {
 
       return newFilteredPosts
     })
-  }, [q, currentTag, currentCategory, currentOrder, setFilteredPosts])
+  }, [q, currentTag, currentCategory, currentOrder, currentLanguage, setFilteredPosts])
 
   return (
     <>
