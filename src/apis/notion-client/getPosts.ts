@@ -6,6 +6,8 @@ import getAllPageIds from "src/libs/utils/notion/getAllPageIds"
 import getPageProperties from "src/libs/utils/notion/getPageProperties"
 import { TPosts } from "src/types"
 
+export const maxDuration = 30;
+
 /**
  * @param {{ includePages: boolean }} - false: posts only / true: include pages
  */
