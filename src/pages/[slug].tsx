@@ -12,6 +12,8 @@ import { dehydrate } from "@tanstack/react-query"
 import usePostQuery from "src/hooks/usePostQuery"
 import { FilterPostsOptions } from "src/libs/utils/notion/filterPosts"
 
+export const maxDuration = 30;
+
 const filter: FilterPostsOptions = {
   acceptStatus: ["Public", "PublicOnDetail"],
   acceptType: ["Paper", "Post", "Page"],

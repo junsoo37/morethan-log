@@ -1,6 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import { getPosts } from "../../apis"
 
+export const maxDuration = 30;
+
 // for all path revalidate, https://<your-site.com>/api/revalidate?secret=<token>
 // for specific path revalidate, https://<your-site.com>/api/revalidate?secret=<token>&path=<path>
 // example, https://<your-site.com>/api/revalidate?secret=이것은_키&path=feed

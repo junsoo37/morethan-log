@@ -4,6 +4,7 @@ import PageDetail from "./PageDetail"
 import styled from "@emotion/styled"
 import usePostQuery from "src/hooks/usePostQuery"
 
+export const maxDuration = 30;
 type Props = {}
 
 const Detail: React.FC<Props> = () => {
