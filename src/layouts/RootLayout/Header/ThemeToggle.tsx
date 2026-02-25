@@ -24,4 +24,7 @@ export default ThemeToggle
 
 const StyledWrapper = styled.div`
   cursor: pointer;
+  ${({ theme }: { theme: any }) =>
+    theme.scheme === "dark" &&
+    `filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.7));`}
 `
