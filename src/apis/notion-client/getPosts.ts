@@ -12,9 +12,19 @@ export const maxDuration = 30;
  * @param {{ includePages: boolean }} - false: posts only / true: include pages
  */
 
-// re-build3
-// TODO: react query를 사용해서 처음 불러온 뒤로는 해당데이터만 사용하도록 수정
+// Short-lived cache to avoid redundant Notion API calls during build.
+// During `next build`, all getStaticProps calls share the same process,
+// so this prevents fetching the same collection data 56+ times.
+// TTL ensures fresh data during ISR revalidation on Vercel.
+const CACHE_TTL_MS = 60 * 1000
+let cachedPosts: TPosts | null = null
+let cacheTimestamp = 0
+
 export const getPosts = async () => {
+  const now = Date.now()
+  if (cachedPosts && (now - cacheTimestamp) < CACHE_TTL_MS) {
+    return cachedPosts
+  }
   let id = CONFIG.notionConfig.pageId as string
   const api = new NotionAPI()
 
@@ -59,6 +69,8 @@ export const getPosts = async () => {
     })
 
     const posts = data as TPosts
+    cachedPosts = posts
+    cacheTimestamp = Date.now()
     return posts
   }
 }
