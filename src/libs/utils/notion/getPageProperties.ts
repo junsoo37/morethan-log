@@ -57,19 +57,25 @@ async function getPageProperties(
           const users = []
           for (let i = 0; i < rawUsers.length; i++) {
             if (rawUsers[i][0][1]) {
-              const userId = rawUsers[i][0]
-              const res: any = await api.getUsers(userId)
-              const resValue =
-                res?.recordMapWithRoles?.notion_user?.[userId[1]]?.value
-              const user = {
-                id: resValue?.id,
-                name:
-                  resValue?.name ||
-                  `${resValue?.family_name}${resValue?.given_name}` ||
-                  undefined,
-                profile_photo: resValue?.profile_photo || null,
+              const userIdPair = rawUsers[i][0]
+              const uuid = userIdPair[1]
+              try {
+                const res: any = await api.getUsers([uuid])
+                const rawValue =
+                  res?.recordMapWithRoles?.notion_user?.[uuid]?.value
+                const resValue = rawValue?.value ?? rawValue
+                const user = {
+                  id: resValue?.id || null,
+                  name:
+                    resValue?.name ||
+                    `${resValue?.family_name}${resValue?.given_name}` ||
+                    null,
+                  profile_photo: resValue?.profile_photo || null,
+                }
+                users.push(user)
+              } catch {
+                users.push({ id: uuid, name: null, profile_photo: null })
               }
-              users.push(user)
             }
           }
           properties[schema[key].name] = users
