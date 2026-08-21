@@ -32,34 +32,40 @@ export const getStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async (context) => {
   const slug = context.params?.slug
 
-  try {
-    const posts = await getPosts()
-    const feedPosts = filterPosts(posts)
-    await queryClient.prefetchQuery(queryKey.posts(), () => feedPosts)
+  const posts = await getPosts()
 
-    const detailPosts = filterPosts(posts, filter)
-    const postDetail = detailPosts.find((t: any) => t.slug === slug)
+  // A reachable Notion always returns the post list, so an empty list means the
+  // fetch degraded. Letting the error propagate keeps the last successful render
+  // in the ISR cache, where reporting notFound would replace that render with a
+  // 404 cached until the next revalidation.
+  if (!posts.length) {
+    throw new Error(`Notion returned no posts while rendering /${slug}`)
+  }
 
-    if (!postDetail) {
-      return { notFound: true }
-    }
+  const feedPosts = filterPosts(posts)
+  await queryClient.prefetchQuery(queryKey.posts(), () => feedPosts)
 
-    const recordMap = await getRecordMap(postDetail.id)
+  const detailPosts = filterPosts(posts, filter)
+  const postDetail = detailPosts.find((t: any) => t.slug === slug)
 
-    await queryClient.prefetchQuery(queryKey.post(`${slug}`), () => ({
-      ...postDetail,
-      recordMap,
-    }))
-
-    return {
-      props: {
-        dehydratedState: dehydrate(queryClient),
-      },
-      revalidate: CONFIG.revalidateTime,
-    }
-  } catch (error) {
-    console.error(`Failed to prerender /${slug}:`, error)
+  // The slug is genuinely absent from a post list we did receive. Revalidating
+  // lets a newly published post recover without a redeploy.
+  if (!postDetail) {
     return { notFound: true, revalidate: CONFIG.revalidateTime }
+  }
+
+  const recordMap = await getRecordMap(postDetail.id)
+
+  await queryClient.prefetchQuery(queryKey.post(`${slug}`), () => ({
+    ...postDetail,
+    recordMap,
+  }))
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+    revalidate: CONFIG.revalidateTime,
   }
 }
 
