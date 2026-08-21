@@ -1,5 +1,5 @@
 import { CONFIG } from "site.config"
-import { NotionAPI } from "notion-client"
+import { notionClient } from "./client"
 import { idToUuid } from "notion-utils"
 
 import getAllPageIds from "src/libs/utils/notion/getAllPageIds"
@@ -26,9 +26,8 @@ export const getPosts = async () => {
     return cachedPosts
   }
   let id = CONFIG.notionConfig.pageId as string
-  const api = new NotionAPI()
 
-  const response = await api.getPage(id)
+  const response = await notionClient.getPage(id)
   id = idToUuid(id)
   const collectionValue = Object.values(response.collection)[0]?.value
   const collection = (collectionValue as any)?.value ?? collectionValue
