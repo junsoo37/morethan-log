@@ -3,15 +3,17 @@ import { CONFIG } from "../../site.config"
 import { NextPageWithLayout } from "../types"
 import { getPosts } from "../apis"
 import MetaConfig from "src/components/MetaConfig"
-import { queryClient } from "src/libs/react-query"
 import { queryKey } from "src/constants/queryKey"
 import { GetStaticProps } from "next"
-import { dehydrate } from "@tanstack/react-query"
+import { dehydrate, QueryClient } from "@tanstack/react-query"
 import { filterPosts } from "src/libs/utils/notion"
 
 export const maxDuration = 30;
 
 export const getStaticProps: GetStaticProps = async () => {
+  // A client per render, so a page's dehydrated state holds only its own
+  // queries instead of every post rendered earlier in the same process.
+  const queryClient = new QueryClient()
   const posts = filterPosts(await getPosts())
   await queryClient.prefetchQuery(queryKey.posts(), () => posts)
 
