@@ -4,7 +4,6 @@ import { formatDate } from "src/libs/utils"
 import Tag from "../../../components/Tag"
 import { TPost } from "../../../types"
 import Image from "next/image"
-import Category from "../../../components/Category"
 import styled from "@emotion/styled"
 
 type Props = {
@@ -12,16 +11,9 @@ type Props = {
 }
 
 const PostCard: React.FC<Props> = ({ data }) => {
-  const category = (data.category && data.category?.[0]) || undefined
-
   return (
     <StyledWrapper href={`/${data.slug}`}>
       <article>
-        {category && (
-          <div className="category">
-            <Category>{category}</Category>
-          </div>
-        )}
         {data.thumbnail && (
           <div className="thumbnail">
             <Image
@@ -32,7 +24,7 @@ const PostCard: React.FC<Props> = ({ data }) => {
             />
           </div>
         )}
-        <div data-thumb={!!data.thumbnail} className="content">
+        <div className="content">
           <header className="top">
             <h2>{data.title}</h2>
           </header>
@@ -81,13 +73,6 @@ const StyledWrapper = styled(Link)`
       box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
         0 4px 6px -2px rgba(0, 0, 0, 0.05);
     }
-    > .category {
-      position: absolute;
-      top: 1rem;
-      left: 1rem;
-      z-index: 10;
-    }
-
     > .thumbnail {
       position: relative;
       width: 100%;
@@ -100,10 +85,6 @@ const StyledWrapper = styled(Link)`
     }
     > .content {
       padding: 1rem;
-
-      &[data-thumb="false"] {
-        padding-top: 3.5rem;
-      }
       > .top {
         display: flex;
         flex-direction: column;

@@ -1,7 +1,6 @@
 import { useRouter } from "next/router"
 import React, { useEffect, useState } from "react"
 import PostCard from "src/routes/Feed/PostList/PostCard"
-import { DEFAULT_CATEGORY } from "src/constants"
 import usePostsQuery from "src/hooks/usePostsQuery"
 
 type Props = {
@@ -14,7 +13,6 @@ const PostList: React.FC<Props> = ({ q }) => {
   const [filteredPosts, setFilteredPosts] = useState(data)
 
   const currentTag = `${router.query.tag || ``}` || undefined
-  const currentCategory = `${router.query.category || ``}` || DEFAULT_CATEGORY
   const currentOrder = `${router.query.order || ``}` || "desc"
   const currentLanguage = router.locale;
 
@@ -40,13 +38,6 @@ const PostList: React.FC<Props> = ({ q }) => {
         )
       }
 
-      // category
-      if (currentCategory !== DEFAULT_CATEGORY) {
-        newFilteredPosts = newFilteredPosts.filter(
-          (post) =>
-            post && post.category && post.category.includes(currentCategory)
-        )
-      }
       // order
       if (currentOrder !== "desc") {
         newFilteredPosts = newFilteredPosts.reverse()
@@ -54,7 +45,7 @@ const PostList: React.FC<Props> = ({ q }) => {
 
       return newFilteredPosts
     })
-  }, [q, currentTag, currentCategory, currentOrder, currentLanguage, setFilteredPosts])
+  }, [q, currentTag, currentOrder, currentLanguage, setFilteredPosts])
 
   return (
     <>
