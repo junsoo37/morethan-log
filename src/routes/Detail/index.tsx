@@ -28,4 +28,11 @@ const StyledWrapper = styled.div`
   &[data-type="Paper"] {
     padding: 40px 0;
   }
+
+  // The post's full-width sheet starts right under the header on phones.
+  @media (max-width: 767px) {
+    &[data-type="Post"] {
+      padding: 0;
+    }
+  }
 `

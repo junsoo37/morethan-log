@@ -121,4 +121,12 @@ const StyledWrapper = styled.div`
   .notion-page {
     padding: 0;
   }
+  // Phone body text at 17px with roomier lines for Korean, in line with
+  // brunch (17.3px / 1.62), Substack (17px / 1.6) and velog (16px / 1.7).
+  @media (max-width: 767px) {
+    .notion {
+      font-size: 17px;
+      line-height: 1.7;
+    }
+  }
 `

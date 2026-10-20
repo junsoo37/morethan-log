@@ -2,7 +2,6 @@ import React from "react"
 import PostHeader from "./PostHeader"
 import Footer from "./PostFooter"
 import CommentBox from "./CommentBox"
-import Category from "src/components/Category"
 import styled from "@emotion/styled"
 import NotionRenderer from "../components/NotionRenderer"
 import usePostQuery from "src/hooks/usePostQuery"
@@ -14,18 +13,9 @@ const PostDetail: React.FC<Props> = () => {
 
   if (!data) return null
 
-  const category = (data.category && data.category?.[0]) || undefined
-
   return (
     <StyledWrapper>
       <article>
-        {category && (
-          <div css={{ marginBottom: "0.5rem" }}>
-            <Category readOnly={data.status?.[0] === "PublicOnDetail"}>
-              {category}
-            </Category>
-          </div>
-        )}
         {data.type[0] === "Post" && <PostHeader data={data} />}
         <div>
           <NotionRenderer recordMap={data.recordMap} />
@@ -55,6 +45,18 @@ const StyledWrapper = styled.div`
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
   margin: 0 auto;
+
+  // On phones the post reads as a full-width sheet, as on Medium or brunch:
+  // the card runs past RootLayout's 1rem side padding and the text sits 20px
+  // from the screen edge instead of 40px.
+  @media (max-width: 767px) {
+    margin: 0 -1rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
   > article {
     margin: 0 auto;
     max-width: 42rem;
